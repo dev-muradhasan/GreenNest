@@ -1,0 +1,30 @@
+@import "tailwindcss";
+ @plugin "daisyui" {
+     themes: light --default;
+ }
+
+
+ .green-hero .swiper-button-next,
+ .green-hero .swiper-button-prev {
+     color: #166534;
+     background: rgba(255, 255, 255, 0.8);
+     width: 30px;
+     height: 30px;
+     border-radius: 50%;
+ }
+
+ .green-hero .swiper-button-next::after,
+ .green-hero .swiper-button-prev::after {
+     font-size: 18px;
+     font-weight: bold;
+ }
+
+ .green-hero .swiper-pagination-bullet {
+     background: #166534;
+     opacity: 0.6;
+ }
+
+ .green-hero .swiper-pagination-bullet-active {
+     background: #166534;
+     opacity: 1;
+ }
