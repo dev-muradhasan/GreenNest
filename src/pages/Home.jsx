@@ -1,4 +1,5 @@
 import Hero from "../components/Hero";
+import PlantCareTips from "../components/PlantCareTips";
 import TopRatedPlants from "../components/TopRatedPlants";
 
 
@@ -7,6 +8,7 @@ const Home = () => {
         <div>
             <Hero></Hero>
             <TopRatedPlants></TopRatedPlants>
+            <PlantCareTips></PlantCareTips>
         </div>
     );
 };

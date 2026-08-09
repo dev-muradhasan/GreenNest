@@ -1,5 +1,6 @@
 import { use } from "react";
 import AllPlants from "./AllPlants";
+import MyContainer from "./MyContainer";
 
 const plantPromise = fetch('/plantsData.json').then(res=>res.json());
 
@@ -7,9 +8,9 @@ const TopRatedPlants = () => {
      const plants = use(plantPromise)
 
      return (
-       <div className="">
+       <MyContainer className="">
          <AllPlants plants={plants}></AllPlants>
-       </div>
+       </MyContainer>
      );
 };
 

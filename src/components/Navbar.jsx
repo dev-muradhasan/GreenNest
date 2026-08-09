@@ -48,9 +48,9 @@ const Navbar = () => {
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-300">
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-300 mb-12">
       <MyContainer className="">
-        <div className="navbar min-h-18 px-0">
+        <div className="navbar min-h-20 px-0">
           {/* Logo */}
           <div className="navbar-start">
             <Link

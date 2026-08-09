@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { use } from "react";
+import MyContainer from "./MyContainer";
 
 const slideData = fetch('slide.json').then(res=>res.json());
 
@@ -13,7 +14,7 @@ const Hero = () => {
   const slides = use(slideData)
 
   return (
-    <div className="">
+    <MyContainer className="">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         slidesPerView={1}
@@ -64,7 +65,7 @@ const Hero = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </MyContainer>
   );
 };
 
