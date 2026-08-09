@@ -1,38 +1,19 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import logo from '../assets/logo.png';
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import MyContainer from "./MyContainer";
+import { use } from "react";
+
+const slideData = fetch('slide.json').then(res=>res.json());
 
 const Hero = () => {
-  const slides = [
-    {
-      title: "Bring Nature Into Your Home",
-      description:
-        "Discover indoor plants that purify air, calm your mind, and style your space.",
-      image:
-        "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      title: "Grow Green, Live Better",
-      description:
-        "Create a fresh and peaceful environment with beautiful indoor plants.",
-      image:
-        "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      title: "Find Your Perfect Plant",
-      description:
-        "Choose from our collection of beautiful plants for every corner of your home.",
-      image:
-        "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=80",
-    },
-  ];
+  const slides = use(slideData)
 
   return (
-    <MyContainer className="">
+    <div className="">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         slidesPerView={1}
@@ -50,7 +31,7 @@ const Hero = () => {
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div
-              className="relative min-h-50 md:min-h-60 lg:min-h-80
+              className="relative min-h-60 md:min-h-70 lg:min-h-90
               bg-cover bg-center flex items-center"
               style={{
                 backgroundImage: `linear-gradient(
@@ -63,24 +44,17 @@ const Hero = () => {
             >
               <div className="container mx-auto px-8 md:px-10 lg:px-16">
                 <div className="max-w-2xl text-white">
-                  {/* Small badge */}
                   <div className="mb-2 lg:mb-4">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-sm px-4 py-2 text-sm font-medium border border-white/20">
-                      🌿 GreenNest
+                    <span className="inline-flex items-center rounded-full bg-white/15 backdrop-blur-sm pl-2 pr-4 py-2 text-sm font-medium border border-white/20">
+                      <span><img className="w-8" src={logo} alt="" /></span>GreenNest
                     </span>
                   </div>
-
-                  {/* Heading */}
                   <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
                     {slide.title}
                   </h1>
-
-                  {/* Description */}
                   <p className="mt-2 lg:mt-5 text-sm md:text-lg text-white/90 max-w-xl leading-4">
                     {slide.description}
                   </p>
-
-                  {/* Button */}
                   <button className="btn bg-green-700 hover:bg-green-800 text-white border-none px-7 mt-4 lg:mt-7">
                     Shop Plants
                   </button>
@@ -90,7 +64,7 @@ const Hero = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </MyContainer>
+    </div>
   );
 };
 

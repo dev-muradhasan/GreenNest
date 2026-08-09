@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import MyContainer from "../components/MyContainer";
 
 
 const MainLayout = () => {
@@ -9,9 +10,9 @@ const MainLayout = () => {
             <header>
                 <Navbar></Navbar>
             </header>
-            <main className="flex-1">
+            <MyContainer className="flex-1">
                 <Outlet></Outlet>
-            </main>
+            </MyContainer>
             <footer>
                 <Footer></Footer>
             </footer>
