@@ -24,7 +24,7 @@ const PlantCareTips = () => {
   ];
 
   return (
-    <section className="bg-[#eef8ed] py-14 md:py-16 mb-16">
+    <section className="bg-[#eef8ed] py-14 md:py-16 ">
       <MyContainer className="">
         {/* Heading */}
         <div className="text-center mb-8">
