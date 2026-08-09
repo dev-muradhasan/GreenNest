@@ -4,18 +4,16 @@ const EcoDecorIdeas = () => {
   const ideas = [
     {
       title: "Cozy Reading Corner",
-      image:
-        "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=600&q=80",
+      image: "https://i.ibb.co.com/vxbyG0Cj/images-4.jpg",
     },
     {
       title: "Boho Balcony",
       image:
-        "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=600&q=80",
+        "https://i.ibb.co.com/Jjnq95Sg/40c7ab2837a5d58545af17aeeb800684.jpg",
     },
     {
       title: "Minimalist Shelf Styling",
-      image:
-        "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80",
+      image: "https://i.ibb.co.com/bgF7HmLZ/images-5.jpg",
     },
   ];
 
