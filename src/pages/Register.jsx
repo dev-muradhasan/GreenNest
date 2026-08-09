@@ -1,14 +1,36 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { Link } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiAlertTriangle } from "react-icons/fi";
+import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [show, setShow] = useState(false);
+  const { user, createUser } = use(AuthContext);
+  
+  const handleRegister =(e)=>{
+    e.preventDefault();
+    const displayName = e.target.name.value;
+    const photoURL = e.target.photo.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(displayName,photoURL,email,password)
+
+    createUser(email,password)
+    .then((res)=>{
+        toast.success('user created')
+        console.log(res.user)
+    })
+    .catch(err=>{
+        console.log(err.message)
+    })
+
+  }
 
   return (
     <div className="bg-[#eef8ed] flex items-center justify-center py-12">
-      <form className="w-full max-w-md bg-white rounded-xl shadow-sm p-8">
+      <form onSubmit={handleRegister} className="w-full max-w-md bg-white rounded-xl shadow-sm p-8">
         <h2 className="text-2xl text-center font-bold text-gray-800 mb-5 pb-5 border-b border-gray-200">
           Create Your Account
         </h2>
@@ -17,6 +39,7 @@ const Register = () => {
           <label className="block font-medium text-gray-700 mb-2">Name</label>
           <input
             type="text"
+            name="name"
             placeholder="Your Name"
             className="input input-bordered w-full"
           />
@@ -28,6 +51,7 @@ const Register = () => {
           </label>
           <input
             type="text"
+            name="photo"
             placeholder="Your Photo URl"
             className="input input-bordered w-full"
           />
@@ -37,6 +61,7 @@ const Register = () => {
           <label className="block font-medium text-gray-700 mb-2">Email</label>
           <input
             type="email"
+            name="email"
             placeholder="you@example.com"
             className="input input-bordered w-full"
           />
@@ -48,6 +73,7 @@ const Register = () => {
           </label>
           <div className="relative">
             <input
+            name="password"
               type={show ? "text" : "password"}
               placeholder="••••••••"
               className="input input-bordered w-full pr-8"
@@ -66,7 +92,7 @@ const Register = () => {
           letter
         </div> */}
 
-        <button className="btn w-full bg-[#267442] hover:bg-[#1e6035] text-white mt-7">
+        <button type="submit" className="btn w-full bg-[#267442] hover:bg-[#1e6035] text-white mt-7">
           Register
         </button>
 
@@ -77,7 +103,7 @@ const Register = () => {
         </div>
 
         {/* Google */}
-        <button className="btn w-full text-md bg-white text-black border-[#e5e5e5]">
+        <button type="submit" className="btn w-full text-md bg-white text-black border-[#e5e5e5]">
           <svg
             aria-label="Google logo"
             width="16"
