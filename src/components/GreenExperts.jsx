@@ -28,14 +28,11 @@ const GreenExperts = () => {
   return (
     <section className="bg-white py-10 md:py-16">
       <MyContainer className="px-5">
-        {/* Heading */}
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
             Meet Our Green Experts
           </h2>
         </div>
-
-        {/* Experts */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
           {experts.map((expert, index) => (
             <div key={index} className="text-center group">
@@ -47,13 +44,9 @@ const GreenExperts = () => {
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                 />
               </div>
-
-              {/* Name */}
               <h3 className="mt-2 text-sm font-semibold text-gray-800">
                 {expert.name}
               </h3>
-
-              {/* Role */}
               <p className="mt-1 text-[10px] md:text-xs text-gray-500 leading-relaxed">
                 {expert.role}
               </p>

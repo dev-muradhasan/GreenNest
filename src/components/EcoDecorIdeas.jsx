@@ -8,8 +8,7 @@ const EcoDecorIdeas = () => {
     },
     {
       title: "Boho Balcony",
-      image:
-        "https://i.ibb.co.com/Jjnq95Sg/40c7ab2837a5d58545af17aeeb800684.jpg",
+      image: "https://i.ibb.co.com/Jjnq95Sg/40c7ab2837a5d58545af17aeeb800684.jpg",
     },
     {
       title: "Minimalist Shelf Styling",

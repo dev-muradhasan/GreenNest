@@ -14,17 +14,14 @@ const PlantCard = ({ plant }) => {
           className="h-48 w-full object-cover rounded-xl"
         />
       </figure>
-
       <div className="px-4 pb-4">
         <div className="flex justify-between items-start">
           <div>
             <h3 className="font-bold text-lg text-[#1F2937]">{plantName}</h3>
-
             <p className="text-sm text-gray-500">
               {category} • {careLevel}
             </p>
           </div>
-
           <div className="flex items-center gap-1 text-amber-500">
             <FaStar size={12} />
             <span className="text-sm font-semibold text-gray-700">
@@ -32,10 +29,8 @@ const PlantCard = ({ plant }) => {
             </span>
           </div>
         </div>
-
         <div className="flex justify-between items-center mt-5">
           <p className="text-2xl font-bold text-green-700">${price}</p>
-
           <Link
             to={`/plant/${plantId}`}
             className="btn btn-sm bg-green-700 hover:bg-green-800 text-white border-none"

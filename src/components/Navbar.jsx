@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router";
 import { FaBars, FaTimes } from "react-icons/fa";
 import MyContainer from "./MyContainer";
-import logo from '../assets/logo.png';
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,10 +48,9 @@ const Navbar = () => {
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-300 mb-12">
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-300">
       <MyContainer className="">
         <div className="navbar min-h-20 px-0">
-          {/* Logo */}
           <div className="navbar-start">
             <Link
               to="/"
@@ -61,30 +60,24 @@ const Navbar = () => {
               <span>GreenNest</span>
             </Link>
           </div>
-
-          {/* Desktop Navigation */}
           <div className="navbar-center hidden md:flex">
             <ul className="menu menu-horizontal gap-6 px-1">{navLinks}</ul>
           </div>
-
-          {/* Desktop Buttons */}
           <div className="navbar-end hidden md:flex gap-3">
             <Link
-              to="/login"
+              to="/auth/login"
               className="btn btn-outline border-green-800 text-green-800 hover:bg-green-800 hover:border-green-800 hover:text-white px-7"
             >
               Login
             </Link>
 
             <Link
-              to="/register"
+              to="/auth/register"
               className="btn bg-green-800 border-green-800 text-white hover:bg-green-900 hover:border-green-900 px-7"
             >
               Register
             </Link>
           </div>
-
-          {/* Mobile Hamburger */}
           <div className="navbar-end md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -95,28 +88,23 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-
-        {/* Mobile Dropdown Menu */}
         {isOpen && (
           <div className="md:hidden pb-4">
             <ul className="menu bg-base-100 rounded-box shadow-md w-full border border-gray-100 p-3">
               {navLinks}
-
               <div className="divider my-1"></div>
-
               <li>
                 <Link
-                  to="/login"
+                  to="/auth/login"
                   onClick={() => setIsOpen(false)}
                   className="font-medium text-green-800"
                 >
                   Login
                 </Link>
               </li>
-
               <li>
                 <Link
-                  to="/register"
+                  to="/auth/register"
                   onClick={() => setIsOpen(false)}
                   className="font-medium text-white bg-green-800 hover:bg-green-900"
                 >
