@@ -1,16 +1,35 @@
-
-import { useState } from "react";
+import { use, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiAlertTriangle } from "react-icons/fi";
 import { Link } from "react-router";
+import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
-    
-    const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
+  const { signInUser } = use(AuthContext);
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    signInUser(email, password)
+      .then((res) => {
+        toast.success('sign in successful')
+        console.log(res.user)
+      })
+      .catch(err=>{
+        console.log(err.message)
+      });
+  };
 
   return (
     <div className="bg-[#eef8ed] flex items-center justify-center py-12">
-      <form className="w-full max-w-md bg-white rounded-xl shadow-sm p-8">
+      <form
+        onSubmit={handleSignIn}
+        className="w-full max-w-md bg-white rounded-xl shadow-sm p-8"
+      >
         <h2 className="text-2xl text-center font-bold text-gray-800 mb-5 pb-5 border-b border-gray-200">
           Login to GreenNest
         </h2>
@@ -24,6 +43,7 @@ const Login = () => {
 
           <input
             type="email"
+            name="email"
             placeholder="you@example.com"
             className="input input-bordered w-full"
           />
@@ -37,6 +57,7 @@ const Login = () => {
           <div className="relative">
             <input
               type={show ? "text" : "password"}
+              name="password"
               placeholder="••••••••"
               className="input input-bordered w-full pr-8"
             />
@@ -45,7 +66,7 @@ const Login = () => {
               onClick={() => setShow(!show)}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-gray-500"
             >
-              {show ? <FaEyeSlash  size={16}/> : <FaEye size={16}></FaEye>}
+              {show ? <FaEyeSlash size={16} /> : <FaEye size={16}></FaEye>}
             </span>
           </div>
         </div>
