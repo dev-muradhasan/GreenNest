@@ -68,7 +68,7 @@ const Navbar = () => {
               to="/auth/login"
               className="btn btn-outline border-green-800 text-green-800 hover:bg-green-800 hover:border-green-800 hover:text-white px-7"
             >
-              Login
+              Sign In
             </Link>
 
             <Link
