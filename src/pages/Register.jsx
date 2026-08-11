@@ -1,5 +1,5 @@
 import { use, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiAlertTriangle } from "react-icons/fi";
 import { AuthContext } from "../context/AuthContext";
@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 
 const Register = () => {
   const [show, setShow] = useState(false);
-  const { user, createUser } = use(AuthContext);
+  const { createUser } = use(AuthContext);
+  const navigate = useNavigate();
   
   const handleRegister =(e)=>{
     e.preventDefault();
@@ -21,6 +22,7 @@ const Register = () => {
     .then((res)=>{
         toast.success('user created')
         console.log(res.user)
+        navigate('/auth/login')
     })
     .catch(err=>{
         console.log(err.message)

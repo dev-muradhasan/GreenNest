@@ -6,6 +6,7 @@ import Profile from "../pages/Profile";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -19,11 +20,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/plants",
-        element: <Plants></Plants>,
+        element: (
+          <PrivateRoute>
+            <Plants></Plants>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
     ],
   },

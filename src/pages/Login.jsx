@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const { signInUser } = use(AuthContext);
+  const { signInUser, setUser } = use(AuthContext);
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -16,6 +16,7 @@ const Login = () => {
 
     signInUser(email, password)
       .then((res) => {
+        setUser(res.user)
         toast.success('sign in successful')
         console.log(res.user)
       })
@@ -46,6 +47,7 @@ const Login = () => {
             name="email"
             placeholder="you@example.com"
             className="input input-bordered w-full"
+            required
           />
         </div>
 
@@ -60,6 +62,7 @@ const Login = () => {
               name="password"
               placeholder="••••••••"
               className="input input-bordered w-full pr-8"
+              required
             />
 
             <span
