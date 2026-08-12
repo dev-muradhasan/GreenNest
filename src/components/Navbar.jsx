@@ -8,10 +8,11 @@ import { IoTriangle } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import { toast } from "react-toastify";
 import userImg from '../assets/images.png'
+import { PulseLoader } from "react-spinners";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, signOutUser ,loading} = use(AuthContext);
+  const { user, signOutUser , loading} = use(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -81,7 +82,11 @@ const Navbar = () => {
           <div className="navbar-center hidden md:flex">
             <ul className="menu menu-horizontal gap-6 px-1">{navLinks}</ul>
           </div>
-          {user ? (
+          {loading ? (
+            <div className="navbar-end hidden md:flex">
+              <PulseLoader size={12} color="#267442" />
+            </div>
+          ) : user ? (
             <div className="dropdown dropdown-bottom navbar-end hidden md:flex gap-3">
               <div
                 tabIndex={0}
@@ -89,14 +94,14 @@ const Navbar = () => {
                 className="flex items-center gap-4 cursor-pointer"
               >
                 <img
-                  src={user?.photoURL || userImg}
-                  alt="User"
+                  src={user?.photoURL?.replace(/^\[|\]\(.*\)$/g, "") || userImg}
+                  alt={user.displayName || "UserImg"}
                   className="w-12 h-12 rounded-full object-cover"
                 />
 
                 <div>
-                  <div className="flex items-center gap-2 text-lg font-medium text-gray-800">
-                    {user?.displayName || "Jane Doe"}
+                  <div className="flex items-center gap-2 font-medium text-gray-800">
+                    {user?.displayName || "User"}
                     <span className="rotate-180">
                       <IoTriangle size={15} />
                     </span>
@@ -151,43 +156,38 @@ const Navbar = () => {
             <ul className="menu bg-base-100 rounded-box shadow-md w-full border border-gray-100 p-3">
               {navLinks}
               <div className="divider my-1"></div>
-              {user ? (
-                <div className="dropdown dropdown-bottom navbar-end flex gap-3">
-                  <div
-                    tabIndex={0}
-                    role="button"
-                    className="flex items-center gap-4 cursor-pointer"
-                  >
-                    <img
-                      src={user?.photoURL || userImg}
-                      alt="User"
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-
-                    <div>
-                      <div className="flex items-center gap-2 text-lg font-medium text-gray-800">
-                        {user?.displayName || "Jane Doe"}
-                        <span className="rotate-180">
-                          <IoTriangle size={15} />
-                        </span>
-                      </div>
-
-                      <p className="text-gray-500">Logout</p>
-                    </div>
-                  </div>
-
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content menu bg-base-100 rounded-box z-50 w-40 p-2 shadow-lg mt-2"
-                  >
-                    <li className="font-medium text-red-500 text-lg">
-                      <button onClick={handleLogout}>
-                        <MdLogout size={20} />
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
+              {loading ? (
+                <div className="navbar-end flex">
+                  <PulseLoader color="#267442" />
                 </div>
+              ) : user ? (
+                <li>
+                  <div className="flex items-center justify-between w-full px-2">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={user?.photoURL || userImg}
+                        alt={user?.displayName || "User"}
+                        className="w-11 h-11 rounded-full object-cover"
+                      />
+
+                      <div>
+                        <p className="font-semibold text-gray-800">
+                          {user?.displayName || "User"}
+                        </p>
+
+                        <p className="text-xs text-gray-500">{user?.email}</p>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={handleLogout}
+                      className="text-red-500 hover:text-red-700 flex items-center gap-1 font-medium"
+                    >
+                      <MdLogout size={22} />
+                      Logout
+                    </button>
+                  </div>
+                </li>
               ) : (
                 <>
                   {" "}

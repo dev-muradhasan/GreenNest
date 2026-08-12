@@ -7,32 +7,89 @@ import { toast } from "react-toastify";
 
 const Register = () => {
   const [show, setShow] = useState(false);
-  const { createUser } = use(AuthContext);
+  const {
+    setUser,
+    createUser,
+    updateUserProfile,
+    sendVerificationEmail,
+    setLoading,
+    signOutUser,
+    googleSignIn,
+  } = use(AuthContext);
   const navigate = useNavigate();
-  
-  const handleRegister =(e)=>{
+
+  const handleRegister = (e) => {
     e.preventDefault();
     const displayName = e.target.name.value;
     const photoURL = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(displayName,photoURL,email,password)
+    
+     if (password.length < 6) {
+       toast.error("Password should be at least 6 character!");
+       return;
+     }
 
-    createUser(email,password)
-    .then((res)=>{
-        toast.success('user created')
-        console.log(res.user)
-        navigate('/auth/login')
-    })
-    .catch(err=>{
-        console.log(err.message)
-    })
-
-  }
+    createUser(email, password)
+      .then(() => {
+        updateUserProfile(displayName, photoURL)
+          .then(() => {
+            sendVerificationEmail()
+              .then(() => {
+                setLoading(false);
+                signOutUser()
+                  .then(() => {
+                    toast.success("please check email");
+                    setUser(null);
+                  })
+                  .catch((err) => toast.error(err.message));
+                navigate("/auth/login");
+              })
+              .catch((err) => {
+                toast.error(err.message);
+              });
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          });
+      })
+      .catch((error) => {
+        if (error.code === "auth/invalid-email") {
+          toast.error("Please enter a valid email.");
+        } else if (error.code === "auth/invalid-credential") {
+          toast.error("Invalid email or password.");
+        } else if (error.code === "auth/email-already-in-use") {
+          toast.error("This email is already registered.");
+        } else if (error.code === "auth/weak-password") {
+          toast.error("Password must be at least 6 characters long.");
+        } else if (error.code === "auth/network-request-failed") {
+          toast.error("Please check your internet connection.");
+        } else if (error.code === "auth/popup-closed-by-user") {
+          toast.error("Google sign-in popup was closed.");
+        } else if (error.code === "auth/too-many-requests") {
+          toast.error("Too many attempts. Please try again later.");
+        } else {
+          toast.error(error.message);
+        }
+      });
+  };
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((res) => {
+        setLoading(false);
+        setUser(res.user);
+        toast.success("sign in successful");
+        navigate(location.state || "/");
+      })
+      .catch((err) => toast.error(err.message));
+  };
 
   return (
     <div className="bg-[#eef8ed] flex items-center justify-center py-12">
-      <form onSubmit={handleRegister} className="w-full max-w-md bg-white rounded-xl shadow-sm p-8">
+      <form
+        onSubmit={handleRegister}
+        className="w-full max-w-md bg-white rounded-xl shadow-sm p-8"
+      >
         <h2 className="text-2xl text-center font-bold text-gray-800 mb-5 pb-5 border-b border-gray-200">
           Create Your Account
         </h2>
@@ -75,7 +132,7 @@ const Register = () => {
           </label>
           <div className="relative">
             <input
-            name="password"
+              name="password"
               type={show ? "text" : "password"}
               placeholder="••••••••"
               className="input input-bordered w-full pr-8"
@@ -94,7 +151,10 @@ const Register = () => {
           letter
         </div> */}
 
-        <button type="submit" className="btn w-full bg-[#267442] hover:bg-[#1e6035] text-white mt-7">
+        <button
+          type="submit"
+          className="btn w-full bg-[#267442] hover:bg-[#1e6035] text-white mt-7"
+        >
           Register
         </button>
 
@@ -105,7 +165,11 @@ const Register = () => {
         </div>
 
         {/* Google */}
-        <button type="submit" className="btn w-full text-md bg-white text-black border-[#e5e5e5]">
+        <button
+          onClick={handleGoogleSignIn}
+          type="button"
+          className="btn w-full text-md bg-white text-black border-[#e5e5e5]"
+        >
           <svg
             aria-label="Google logo"
             width="16"

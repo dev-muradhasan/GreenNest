@@ -1,10 +1,11 @@
 import { use } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Navigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
 import { RingLoader } from "react-spinners";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = use(AuthContext);
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -15,7 +16,7 @@ const PrivateRoute = ({ children }) => {
   }
 
   if (!user) {
-    return <Navigate to={"/auth/login"}></Navigate>;
+    return <Navigate state={location.pathname} to={"/auth/login"}></Navigate>;
   }
 
   return children;
