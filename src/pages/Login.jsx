@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { use, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiAlertTriangle } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router";
@@ -7,10 +7,17 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const { signInUser, setUser, setLoading, signOutUser, googleSignIn } =
-    use(AuthContext);
+  const {
+    signInUser,
+    setUser,
+    setLoading,
+    signOutUser,
+    googleSignIn,
+    passwordResetEmail,
+  } = use(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+  const emailRef = useRef();
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -38,11 +45,18 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((res) => {
-         setLoading(false);
-         setUser(res.user);
-         toast.success("sign in successful");
-         navigate(location.state || "/");
+        setLoading(false);
+        setUser(res.user);
+        toast.success("sign in successful");
+        navigate(location.state || "/");
       })
+      .catch((err) => toast.error(err.message));
+  };
+
+  const handlePasswordReset = () => {
+    const email = emailRef.current.value;
+    passwordResetEmail(email)
+      .then(toast.success("Please check your email to reset password!"))
       .catch((err) => toast.error(err.message));
   };
 
@@ -66,6 +80,7 @@ const Login = () => {
           <input
             type="email"
             name="email"
+            ref={emailRef}
             placeholder="you@example.com"
             className="input input-bordered w-full"
             required
@@ -96,7 +111,11 @@ const Login = () => {
         </div>
 
         <div className="text-right mt-2">
-          <button className="text-xs text-[#267442] hover:underline">
+          <button
+            onClick={handlePasswordReset}
+            type="button"
+            className="text-xs text-[#267442] hover:underline"
+          >
             Forgot Password?
           </button>
         </div>
