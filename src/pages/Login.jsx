@@ -1,13 +1,14 @@
 import { use, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiAlertTriangle } from "react-icons/fi";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const [show, setShow] = useState(false);
   const { signInUser, setUser } = use(AuthContext);
+  const navigate = useNavigate();
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ const Login = () => {
       .then((res) => {
         setUser(res.user)
         toast.success('sign in successful')
+        navigate('/')
         console.log(res.user)
       })
       .catch(err=>{
