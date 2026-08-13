@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [show, setShow] = useState(false);
+  const [loginErr, setLoginErr] = useState('')
   const {
     signInUser,
     setUser,
@@ -38,7 +39,14 @@ const Login = () => {
       })
       .catch((err) => {
         setLoading(false);
-        toast.error(err.message);
+         if (
+           err.code === "auth/invalid-credential" ||
+           err.code === "auth/invalid-login-credentials"
+         ) {
+           setLoginErr("Invalid email or password.");
+         } else {
+           setLoginErr(err.message);
+         }
       });
   };
 
@@ -70,9 +78,11 @@ const Login = () => {
           Login to GreenNest
         </h2>
 
-        {/* <div className="bg-red-100 flex items-center gap-1 text-red-500 text-xs rounded-md px-2 py-2 mb-3">
-          <FiAlertTriangle /> <span>Invalid email or password</span>
-        </div> */}
+        {loginErr && (
+          <div className="bg-red-100 flex items-center gap-1 text-red-500 text-sm rounded-md px-2 py-2 mb-3">
+            <FiAlertTriangle /> <span>Invalid email or password</span>
+          </div>
+        )}
 
         <div className="mb-3">
           <label className="block font-medium text-gray-700 mb-2">Email</label>

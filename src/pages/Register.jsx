@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 const Register = () => {
   const [show, setShow] = useState(false);
+  const [passwordErr , setPasswordErr] = useState('')
   const {
     setUser,
     createUser,
@@ -18,6 +19,8 @@ const Register = () => {
   } = use(AuthContext);
   const navigate = useNavigate();
 
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+
   const handleRegister = (e) => {
     e.preventDefault();
     const displayName = e.target.name.value;
@@ -25,10 +28,13 @@ const Register = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     
-     if (password.length < 6) {
-       toast.error("Password should be at least 6 character!");
-       return;
-     }
+    if (!passwordRegex.test(password)) {
+      setPasswordErr(
+        "Password must be at least 6 characters with uppercase and lowercase letters.",
+      );
+      return;
+    }
+    setPasswordErr('')
 
     createUser(email, password)
       .then(() => {
@@ -146,10 +152,13 @@ const Register = () => {
             </span>
           </div>
         </div>
-        {/* <div className="text-sm text-red-500 mt-2">
-         Password must be 6+ characters with an uppercase and lowercase
-          letter
-        </div> */}
+
+        {passwordErr && (
+          <div className="text-sm text-red-500 mt-2 flex gap-1">
+           <FiAlertTriangle size={18}></FiAlertTriangle> Password must be 6+ characters with an uppercase and lowercase
+            letter
+          </div>
+        )}
 
         <button
           type="submit"

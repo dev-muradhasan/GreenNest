@@ -5,7 +5,8 @@ import MyContainer from "./MyContainer";
 const plantPromise = fetch('/plantsData.json').then(res=>res.json());
 
 const TopRatedPlants = () => {
-     const plants = use(plantPromise)
+     const plant = use(plantPromise)
+     const plants = plant.slice(0,4)
 
      return (
        <MyContainer className="">

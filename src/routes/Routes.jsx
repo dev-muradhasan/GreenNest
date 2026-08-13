@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
-import Plants from "../pages/Plants";
 import Profile from "../pages/Profile";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
 import PrivateRoute from "./PrivateRoute";
+import PlantsDetails from "../pages/PlantsDetails";
+import Plants from "../pages/Plants";
+import { RingLoader } from "react-spinners";
 
 
 const router = createBrowserRouter([
@@ -49,6 +51,20 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
     ],
+  },
+  {
+    path: "/plantsDetails/:id",
+    loader: () => fetch("/plantsData.json"),
+    hydrateFallbackElement: (
+      <div className="flex justify-center items-center min-h-[38vh]">
+        <RingLoader color="#267442" />
+      </div>
+    ),
+    element: (
+      <PrivateRoute>
+        <PlantsDetails></PlantsDetails>
+      </PrivateRoute>
+    ),
   },
 ]);
 

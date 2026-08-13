@@ -1,4 +1,6 @@
+import { FaArrowRightLong } from "react-icons/fa6";
 import PlantCard from "./PlantCard";
+import { Link } from "react-router";
 
 
 const AllPlants = ({plants}) => {
@@ -14,6 +16,11 @@ const AllPlants = ({plants}) => {
           {plants.map((plant) => (
             <PlantCard key={plant.plantId} plant={plant} />
           ))}
+        </div>
+        <div className="flex justify-center">
+          <Link to={'/plants'} className="btn bg-[#267442] text-white mt-8">
+            <span className="mr-1">See All Plants</span> <FaArrowRightLong />
+          </Link>
         </div>
       </section>
     );

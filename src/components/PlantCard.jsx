@@ -32,7 +32,7 @@ const PlantCard = ({ plant }) => {
         <div className="flex justify-between items-center mt-5">
           <p className="text-2xl font-bold text-green-700">${price}</p>
           <Link
-            to={`/plant/${plantId}`}
+            to={`/plantsDetails/${plantId}`}
             className="btn btn-sm bg-green-700 hover:bg-green-800 text-white border-none"
           >
             View Details
