@@ -18,7 +18,7 @@ const Navbar = () => {
   const handleLogout = () => {
     signOutUser()
       .then(() => {
-        toast.warn('user logout');
+        toast.warn('LogOut successful!');
         navigate('/auth/login')
       })
       .catch((err) => {

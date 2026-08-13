@@ -34,7 +34,7 @@ const Login = () => {
         }
         setLoading(false);
         setUser(res.user);
-        toast.success("sign in successful");
+        toast.success("Sign in successful!");
         navigate(location.state || "/");
       })
       .catch((err) => {
@@ -55,7 +55,7 @@ const Login = () => {
       .then((res) => {
         setLoading(false);
         setUser(res.user);
-        toast.success("sign in successful");
+        toast.success("Sign in successful!");
         navigate(location.state || "/");
       })
       .catch((err) => toast.error(err.message));

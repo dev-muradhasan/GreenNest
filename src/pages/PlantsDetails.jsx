@@ -3,15 +3,18 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import MyContainer from "../components/MyContainer";
 import { FaArrowLeftLong, FaStar } from "react-icons/fa6";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { TiTick } from "react-icons/ti";
 
 
 const PlantsDetails = () => {
+    const [isBooked, setIsBooked] = useState(false);
     const data = useLoaderData();
     const {id} = useParams();
 
     const singlePlant = data.find(d=>d.plantId === Number(id));
     const {
-      plantId,
       plantName,
       category,
       price,
@@ -25,6 +28,8 @@ const PlantsDetails = () => {
 
     const handleOnSubmit =(e)=>{
         e.preventDefault();
+        setIsBooked(true);
+        toast.success("Consultation booked! We'll be in touch shortly.")
     };
 
     return (
@@ -126,47 +131,50 @@ const PlantsDetails = () => {
                     </h2>
 
                     {/* Success Message - Design Only */}
-                    {/* <div className="bg-[#dff2e2] text-[#267442] rounded-lg px-4 py-3 mb-5 text-sm font-medium">
-                      ✓ Consultation booked! We'll be in touch shortly.
-                    </div> */}
-
-                    <form onSubmit={handleOnSubmit} className="space-y-4">
-                      {/* Name */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-800 mb-2">
-                          Name
-                        </label>
-
-                        <input
-                          type="text"
-                          placeholder="Your name"
-                          className="input input-bordered w-full bg-white"
-                          required
-                        />
+                    {isBooked ? (
+                      <div className="bg-[#dff2e2] text-[#267442] rounded-lg px-4 py-3 mb-5 text-sm font-medium flex items-center gap-1">
+                        <TiTick size={22}/> Consultation booked! We'll be in touch
+                        shortly.
                       </div>
+                    ) : (
+                      <form onSubmit={handleOnSubmit} className="space-y-4">
+                        {/* Name */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-800 mb-2">
+                            Name
+                          </label>
 
-                      {/* Email */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-800 mb-2">
-                          Email
-                        </label>
+                          <input
+                            type="text"
+                            placeholder="Your name"
+                            className="input input-bordered w-full bg-white"
+                            required
+                          />
+                        </div>
 
-                        <input
-                          type="email"
-                          placeholder="you@example.com"
-                          required
-                          className="input input-bordered w-full bg-white"
-                        />
-                      </div>
+                        {/* Email */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-800 mb-2">
+                            Email
+                          </label>
 
-                      {/* Button */}
-                      <button
-                        type="submit"
-                        className="btn w-full bg-[#267442] hover:bg-[#1e6035] border-none text-white text-base font-semibold mt-1"
-                      >
-                        Book Now
-                      </button>
-                    </form>
+                          <input
+                            type="email"
+                            placeholder="you@example.com"
+                            required
+                            className="input input-bordered w-full bg-white"
+                          />
+                        </div>
+
+                        {/* Button */}
+                        <button
+                          type="submit"
+                          className="btn w-full bg-[#267442] hover:bg-[#1e6035] border-none text-white text-base font-semibold mt-1"
+                        >
+                          Book Now
+                        </button>
+                      </form>
+                    )}
                   </div>
                 </div>
               </div>

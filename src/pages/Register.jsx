@@ -45,7 +45,7 @@ const Register = () => {
                 setLoading(false);
                 signOutUser()
                   .then(() => {
-                    toast.success("please check email");
+                    toast.success("Please check your email and click the link to verify.");
                     setUser(null);
                   })
                   .catch((err) => toast.error(err.message));
@@ -84,7 +84,7 @@ const Register = () => {
       .then((res) => {
         setLoading(false);
         setUser(res.user);
-        toast.success("sign in successful");
+        toast.success("Sign in successful!");
         navigate(location.state || "/");
       })
       .catch((err) => toast.error(err.message));
